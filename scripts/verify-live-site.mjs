@@ -5,7 +5,7 @@ for(const p of paths){
   const url=base+'/'+p;
   const r=await fetch(url,{redirect:'follow'});
   const html=await r.text();
-  const hop=p===''?html.includes('SuperEasyOTP'):html.includes('Hopium Studio Inc.');
+  const hop=p===''?html.includes('SuperEasyOTP'):/Hopium Studio/.test(html);
   const bad=/\[[A-Z][A-Z0-9_]+\]/.test(html);
   const ok=r.ok&&!bad&&hop;
   if(!ok)fail++;

@@ -564,7 +564,7 @@ pages.support={
   title:'Support — SuperEasyOTP',
   description:'Connection help, missing codes, and how to contact SuperEasyOTP support safely.',
   nav:'support',
-  body:legal(`<article class="prose wide"><header class="page-hero" style="border:0;padding-bottom:0"><h1>How can we help?</h1><p class="lead">Contact <a href="mailto:[SUPPORT_EMAIL]">[SUPPORT_EMAIL]</a>. Never send passwords, live codes, or complete emails.</p></header>
+  body:legal(`<article class="prose wide"><header class="page-hero" style="border:0;padding-bottom:0"><h1>How can we help?</h1><p class="lead">Contact <a href="mailto:[SUPPORT_EMAIL]">[SUPPORT_EMAIL]</a>. Never send passwords, live codes, or complete emails.</p><p class="doc-meta">Operated by [LEGAL_OPERATOR_NAME], [BUSINESS_OR_CONTACT_ADDRESS].</p></header>
 <h2>Can't connect?</h2><p>Choose the right Google account and grant Gmail access. Workspace administrators may need to approve the app.</p>
 <h2>No popup?</h2><p>In Settings choose toolbar popups or Chrome notifications. Pin the icon for popups. Older and ambiguous messages stay in the inbox.</p>
 <h2>Missing mail?</h2><p>Refresh and check the account selector. Spam, Trash and archived emails are excluded.</p>
@@ -576,7 +576,7 @@ pages.security={
   title:'Security — SuperEasyOTP',
   description:'How SuperEasyOTP protects credentials, processes mail locally, and how to report vulnerabilities.',
   nav:'security',
-  body:legal(`<article class="prose wide"><header class="page-hero" style="border:0;padding-bottom:0"><h1>Security at SuperEasyOTP</h1><p class="lead">We handle OAuth credentials and mailbox notifications with care. Message bodies are normally processed in the extension—not archived on our servers.</p></header>
+  body:legal(`<article class="prose wide"><header class="page-hero" style="border:0;padding-bottom:0"><h1>Security at SuperEasyOTP</h1><p class="lead">We handle OAuth credentials and mailbox notifications with care. Message bodies are normally processed in the extension—not archived on our servers.</p><p class="doc-meta">Operated by [LEGAL_OPERATOR_NAME], [BUSINESS_OR_CONTACT_ADDRESS].</p></header>
 <div class="security-grid">
 <div class="security-block"><h2>Credential storage</h2><p>Google refresh tokens and related account data are stored encrypted on the backend. Access is limited to operating SuperEasyOTP (connection, renewal, Gmail change signals).</p></div>
 <div class="security-block"><h2>Local processing</h2><p>Recent inbox content and sign-in detection run on your device inside the Chrome extension. We do not maintain a server-side mailbox archive for product features.</p></div>
