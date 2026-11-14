@@ -1,4 +1,4 @@
-# InstaMail — build package
+# SuperEasyOTP — build package
 Prepared 10 November 2026. Product owner decisions: multiple Gmail / Google Workspace inboxes; legal identity, domain and contacts use placeholders.
 
 ## How to use
@@ -31,4 +31,4 @@ Launch is free, without advertising or paid plans. Ads were considered in ideati
 
 ## Placeholder register — replace before production
 `[LEGAL_OPERATOR_NAME]`, `[BUSINESS_OR_CONTACT_ADDRESS]`, `[SUPPORT_EMAIL]`, `[PRIVACY_EMAIL]`, `[SECURITY_EMAIL]`, `[PUBLIC_DOMAIN]`, `[API_DOMAIN]`, `[CHROME_STORE_URL]`, `[EFFECTIVE_DATE]`, `[GOVERNING_JURISDICTION]`, `[HOSTING_REGION]`, `[INFRASTRUCTURE_PROVIDERS]`.
-Deployment must fail its production content check if required placeholders remain. Domain availability and trademark clearance for InstaMail have not been checked.
+Deployment must fail its production content check if required placeholders remain. Domain availability and trademark clearance for SuperEasyOTP have not been checked.

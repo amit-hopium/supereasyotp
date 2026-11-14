@@ -18,7 +18,7 @@ try{sharp=(await import('sharp')).default}catch{
 const master=await sharp(svg,{density:384}).resize(1024,1024,{kernel:sharp.kernel.lanczos3}).png({compressionLevel:9}).toBuffer();
 
 writeFileSync(join(outDir,'logo-1024.png'),master);
-writeFileSync(join(webAssets,'instamail-logo-1024.png'),master);
+writeFileSync(join(webAssets,'supereasyotp-logo-1024.png'),master);
 
 const sizes=[512,128,48,32,16];
 for(const size of sizes){

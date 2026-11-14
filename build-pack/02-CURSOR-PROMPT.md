@@ -1,12 +1,12 @@
 # Paste this entire prompt into Cursor Agent
 
-Build InstaMail completely from the specification documents in this folder. This is an implementation request: create working application code, backend, static website, deployment assets, tests and release artifacts. Work through the whole scope; do not stop after scaffolding or a plan.
+Build SuperEasyOTP completely from the specification documents in this folder. This is an implementation request: create working application code, backend, static website, deployment assets, tests and release artifacts. Work through the whole scope; do not stop after scaffolding or a plan.
 
 Read 00-START-HERE.md, 01-PRD.md, 03-TECHNICAL-SPEC.md, 04-WEBSITE-COPY.md, 05-PRIVACY-POLICY.md, 06-TERMS.md, 07-DATA-DELETION.md and 08-LAUNCH-AND-VERIFICATION.md before coding. Treat the PRD as product authority, technical spec as engineering authority, and legal copy as drafts that must match actual behavior. Record and resolve inconsistencies; never silently change privacy architecture or reduce UX to timed inbox polling.
 
-InstaMail supports multiple Gmail/Workspace accounts in a single Chrome profile. Clicking the extension shows latest 5 emails by default; users choose 1/3/5. Each row surfaces high-confidence OTPs and sign-in links with copy/open actions. New OTP/sign-in mail automatically opens a compact native Chrome toolbar popup when enabled, including when the extension UI was closed. Turning it off preserves email reading and inline detection. Build this exact product.
+SuperEasyOTP supports multiple Gmail/Workspace accounts in a single Chrome profile. Clicking the extension shows latest 5 emails by default; users choose 1/3/5. Each row surfaces high-confidence OTPs and sign-in links with copy/open actions. New OTP/sign-in mail automatically opens a compact native Chrome toolbar popup when enabled, including when the extension UI was closed. Turning it off preserves email reading and inline detection. Build this exact product.
 
-Use the stack and repo layout from the technical spec. Verify current primary documentation before using version-sensitive APIs. Read repository instructions before changing files. Create an isolated instamail application directory if working in an unrelated existing repository. Never overwrite unrelated work.
+Use the stack and repo layout from the technical spec. Verify current primary documentation before using version-sensitive APIs. Read repository instructions before changing files. Create an isolated supereasyotp application directory if working in an unrelated existing repository. Never overwrite unrelated work.
 
 Execution order:
 1. Write a short implementation checklist and requirement-to-file map. Establish monorepo, package scripts and shared schemas.

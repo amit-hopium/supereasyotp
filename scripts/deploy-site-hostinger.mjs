@@ -15,7 +15,7 @@ if(!existsSync(dist+'/privacy/index.html')){
 
 if(!existsSync(envPath)){
   console.error('Create',envPath,'from build-pack/hostinger-site.env.example (FTP/SFTP details from hPanel).');
-  console.error('Or upload InstaMail-site.tar.gz manually — docs/LAUNCH-NEXT-15MIN.md');
+  console.error('Or upload supereasyotp-site.tar.gz manually — docs/LAUNCH-NEXT-15MIN.md');
   process.exit(1);
 }
 

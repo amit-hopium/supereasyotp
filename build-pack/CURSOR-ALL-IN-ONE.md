@@ -1,16 +1,16 @@
-# InstaMail — complete Cursor build context
+# SuperEasyOTP — complete Cursor build context
 
 Paste the contents into Cursor Agent or attach this file and ask it to execute the Cursor prompt below. Read all sections before implementation.
 
 # Paste this entire prompt into Cursor Agent
 
-Build InstaMail completely from the specification documents in this folder. This is an implementation request: create working application code, backend, static website, deployment assets, tests and release artifacts. Work through the whole scope; do not stop after scaffolding or a plan.
+Build SuperEasyOTP completely from the specification documents in this folder. This is an implementation request: create working application code, backend, static website, deployment assets, tests and release artifacts. Work through the whole scope; do not stop after scaffolding or a plan.
 
 Read 00-START-HERE.md, 01-PRD.md, 03-TECHNICAL-SPEC.md, 04-WEBSITE-COPY.md, 05-PRIVACY-POLICY.md, 06-TERMS.md, 07-DATA-DELETION.md and 08-LAUNCH-AND-VERIFICATION.md before coding. Treat the PRD as product authority, technical spec as engineering authority, and legal copy as drafts that must match actual behavior. Record and resolve inconsistencies; never silently change privacy architecture or reduce UX to timed inbox polling.
 
-InstaMail supports multiple Gmail/Workspace accounts in a single Chrome profile. Clicking the extension shows latest 5 emails by default; users choose 1/3/5. Each row surfaces high-confidence OTPs and sign-in links with copy/open actions. New OTP/sign-in mail automatically opens a compact native Chrome toolbar popup when enabled, including when the extension UI was closed. Turning it off preserves email reading and inline detection. Build this exact product.
+SuperEasyOTP supports multiple Gmail/Workspace accounts in a single Chrome profile. Clicking the extension shows latest 5 emails by default; users choose 1/3/5. Each row surfaces high-confidence OTPs and sign-in links with copy/open actions. New OTP/sign-in mail automatically opens a compact native Chrome toolbar popup when enabled, including when the extension UI was closed. Turning it off preserves email reading and inline detection. Build this exact product.
 
-Use the stack and repo layout from the technical spec. Verify current primary documentation before using version-sensitive APIs. Read repository instructions before changing files. Create an isolated instamail application directory if working in an unrelated existing repository. Never overwrite unrelated work.
+Use the stack and repo layout from the technical spec. Verify current primary documentation before using version-sensitive APIs. Read repository instructions before changing files. Create an isolated supereasyotp application directory if working in an unrelated existing repository. Never overwrite unrelated work.
 
 Execution order:
 1. Write a short implementation checklist and requirement-to-file map. Establish monorepo, package scripts and shared schemas.
@@ -42,7 +42,7 @@ Keep working until all code and documentation possible with available credential
 
 # Source document: 00-START-HERE.md
 
-# InstaMail — build package
+# SuperEasyOTP — build package
 Prepared 10 November 2026. Product owner decisions: multiple Gmail / Google Workspace inboxes; legal identity, domain and contacts use placeholders.
 
 ## How to use
@@ -75,17 +75,17 @@ Launch is free, without advertising or paid plans. Ads were considered in ideati
 
 ## Placeholder register — replace before production
 `[LEGAL_OPERATOR_NAME]`, `[BUSINESS_OR_CONTACT_ADDRESS]`, `[SUPPORT_EMAIL]`, `[PRIVACY_EMAIL]`, `[SECURITY_EMAIL]`, `[PUBLIC_DOMAIN]`, `[API_DOMAIN]`, `[CHROME_STORE_URL]`, `[EFFECTIVE_DATE]`, `[GOVERNING_JURISDICTION]`, `[HOSTING_REGION]`, `[INFRASTRUCTURE_PROVIDERS]`.
-Deployment must fail its production content check if required placeholders remain. Domain availability and trademark clearance for InstaMail have not been checked.
+Deployment must fail its production content check if required placeholders remain. Domain availability and trademark clearance for SuperEasyOTP have not been checked.
 
 
 ---
 
 # Source document: 01-PRD.md
 
-# InstaMail product requirements
+# SuperEasyOTP product requirements
 
 ## 1. Product and outcome
-InstaMail is a lightweight Chrome email companion for multiple Gmail accounts. Users glance at recent emails and retrieve authentication codes or sign-in links without switching to Gmail. It supports both deliberate inbox checking and automatic arrival alerts.
+SuperEasyOTP is a lightweight Chrome email companion for multiple Gmail accounts. Users glance at recent emails and retrieve authentication codes or sign-in links without switching to Gmail. It supports both deliberate inbox checking and automatic arrival alerts.
 
 Primary job: “I just requested a login email. Show the actionable code or link as soon as it arrives, with one-click copy.” Secondary job: “Show my latest emails without opening a full email app.”
 
@@ -106,7 +106,7 @@ No hosted LLM dependency in P0. Detection runs deterministically in the extensio
 2. Explain: “Your recent emails and sign-in codes, one click away.” Show a short access disclosure and Connect Gmail.
 3. User clicks Connect Gmail; Google account chooser and consent flow appear. Explain read-only access before consent; link Privacy and Terms. Do not request a Gmail password.
 4. On success, show connected address, load newest inbox messages, and register push watch.
-5. Offer Add another Gmail account and a concise instruction to pin InstaMail. Pinning is user-controlled, not automatic.
+5. Offer Add another Gmail account and a concise instruction to pin SuperEasyOTP. Pinning is user-controlled, not automatic.
 6. Show “Automatically show sign-in codes” enabled and directly editable. Finish opens inbox.
 
 Do not mark connection successful until token scope, account identity and initial Gmail request succeed. Denial returns to welcome with Try again; cancellation is neutral. Workspace admin denial explains that an administrator may need to allow the app. Do not suggest bypassing admin restrictions. Reconnecting one account must leave the others usable.
@@ -144,7 +144,7 @@ Setting off suppresses every automatic popup; email fetching, detection and inli
 - Automatic sign-in popups: on/off; default on with onboarding disclosure.
 - Theme: system/light/dark; default system.
 - Accounts: address, connection state, reconnect, remove, add account. No arbitrary paid account cap; validate with at least three independent Google accounts.
-- Privacy: Disconnect all and delete InstaMail data, privacy policy, support.
+- Privacy: Disconnect all and delete SuperEasyOTP data, privacy policy, support.
 - About: version, terms, store link once published.
 Settings persist locally without Chrome Sync. Removing an account clears its session cache and future events. Removing the last account returns to welcome. Full deletion requires a clear confirmation and must be retryable if offline.
 
@@ -186,7 +186,7 @@ Real Gmail OAuth and push validation; native popup behavior validated in current
 
 # Source document: 03-TECHNICAL-SPEC.md
 
-# InstaMail engineering specification
+# SuperEasyOTP engineering specification
 
 ## 1. Chosen architecture
 TypeScript monorepo, pnpm workspaces. Extension: React + Vite, Manifest V3, minimum Chrome 127. Website: React + Vite with prerendered/static legal routes. Backend: Node.js active LTS + Fastify + ws. PostgreSQL stores users, accounts, device sessions and watch state. Redis provides short-lived tickets, per-user event fanout and locks. Use maintained compatible package versions and lockfile; verify actual API versions during implementation.
@@ -281,7 +281,7 @@ Ship commands for install/dev/build/test/typecheck/lint/extension:zip. Supply .e
 
 # Source document: 04-WEBSITE-COPY.md
 
-# InstaMail website draft and implementation brief
+# SuperEasyOTP website draft and implementation brief
 Status: ready for implementation; replace placeholders and validate every claim against shipped behavior before publishing. This is the complete copy specification, not a deployed website.
 
 ## Design and routes
@@ -289,10 +289,10 @@ A fast, simple static website. Responsive 1120px max content width; generous whi
 Routes: /, /privacy, /terms, /delete-data, /support, /security. All legal pages are public and directly reachable without sign-in. Footer on every page links to all routes and names the operator. Same owned domain for homepage/privacy. Render main content statically for reviewers and accessibility.
 
 ## Homepage
-Page title: InstaMail — Your inbox, a click away
+Page title: SuperEasyOTP — Your inbox, a click away
 Meta description: Check recent emails across your Gmail accounts. Copy sign-in codes and open login links directly from a compact Chrome extension.
 
-Navigation: InstaMail | How it works | Privacy | Support | Add to Chrome
+Navigation: SuperEasyOTP | How it works | Privacy | Support | Add to Chrome
 The installation button must use the real store listing after approval. Before approval, label it “Coming to Chrome” and link to a short availability explanation; never simulate a completed install. Do not collect waitlist addresses without implementing a separate consent/retention policy.
 
 Hero eyebrow: A little less switching. A little more flow.
@@ -302,20 +302,20 @@ Primary CTA: Add to Chrome
 Secondary CTA: See how it works (anchor)
 Supporting line: Free to use. Built for Chrome and Gmail.
 
-Hero illustration: Native toolbar icon above a compact InstaMail panel. Synthetic row: “Example App · Your sign-in code · just now”, code “004291”, Copy code. Second row: a routine email. Label: Illustrative preview. Never use a real login link.
+Hero illustration: Native toolbar icon above a compact SuperEasyOTP panel. Synthetic row: “Example App · Your sign-in code · just now”, code “004291”, Copy code. Second row: a routine email. Label: Illustrative preview. Never use a real login link.
 
 Feature section heading: The useful part of your inbox, without the detour.
 Feature 1 title: Your latest emails, at a glance.
 Body: See your newest five emails in a condensed view. Prefer an even smaller inbox? Choose three or one in Settings.
 Feature 2 title: Codes and links, ready to use.
-Body: When InstaMail recognizes a sign-in code or link, it places the action beside the email. Copy the code or open the link with a click.
+Body: When SuperEasyOTP recognizes a sign-in code or link, it places the action beside the email. Copy the code or open the link with a click.
 Feature 3 title: Your accounts, together.
 Body: Connect multiple Gmail accounts. View them together or switch to one inbox, with the recipient account clearly shown.
 Feature 4 title: A popup when you want it.
 Body: Enable automatic sign-in popups to see new codes as they arrive while Chrome is active. Turn them off whenever you prefer to check mail yourself.
 
 How it works heading: Connect once. Keep your flow.
-Step 1: Add InstaMail to Chrome.
+Step 1: Add SuperEasyOTP to Chrome.
 Text: Open the welcome screen and choose Connect Gmail.
 Step 2: Choose your Google account.
 Text: Review the access request and connect an account. Add another whenever you need it.
@@ -323,8 +323,8 @@ Step 3: Check mail—or let the code come to you.
 Text: Click the icon for recent emails. With automatic popups enabled, recognized sign-in messages can appear in a compact toolbar popup.
 
 Privacy section heading: Know what you’re connecting.
-Body: InstaMail requests read-only Gmail access to find recent emails and sign-in messages. Message contents are normally fetched and processed inside the extension. Our backend manages encrypted account credentials and mailbox-change notifications to keep accounts connected. It does not maintain an archive of your email bodies or codes.
-Second paragraph: Because these credentials authorize Gmail access, the service has the technical ability to access your connected mailbox. We restrict that access to providing InstaMail. Gmail data is not sold, used for advertising, or used to train general AI models.
+Body: SuperEasyOTP requests read-only Gmail access to find recent emails and sign-in messages. Message contents are normally fetched and processed inside the extension. Our backend manages encrypted account credentials and mailbox-change notifications to keep accounts connected. It does not maintain an archive of your email bodies or codes.
+Second paragraph: Because these credentials authorize Gmail access, the service has the technical ability to access your connected mailbox. We restrict that access to providing SuperEasyOTP. Gmail data is not sold, used for advertising, or used to train general AI models.
 Link: Read our privacy policy.
 
 FAQ:
@@ -333,24 +333,24 @@ A: Gmail and Google Workspace accounts. Your Workspace administrator may need to
 Q: Can I use more than one account?
 A: Yes. Add each Gmail account separately and switch between them or use All inboxes.
 Q: Will codes appear instantly?
-A: InstaMail uses Gmail change notifications to surface recognized sign-in messages promptly. Timing depends on the sender, Gmail, your connection and Chrome. Delivery and detection are not guaranteed to be instant.
+A: SuperEasyOTP uses Gmail change notifications to surface recognized sign-in messages promptly. Timing depends on the sender, Gmail, your connection and Chrome. Delivery and detection are not guaranteed to be instant.
 Q: Can I turn off the popups?
 A: Yes. Turn off automatic sign-in popups in Settings. Your recent emails and inline code/link actions remain available.
 Q: Does it work when Chrome is closed?
 A: The extension displays updates while Chrome is running. When you return, it reconnects and refreshes your inbox.
-Q: Does InstaMail change my emails?
+Q: Does SuperEasyOTP change my emails?
 A: No. This release reads email; it does not send, delete or mark messages as read in Gmail.
 Q: Why does Google ask for access to my Gmail?
 A: Gmail does not offer permission limited only to OTP emails. Read-only message access is needed to recognize codes in the email body. You can disconnect at any time.
 Q: How do I disconnect and delete data?
 A: Open Settings to remove an account or choose Disconnect all and delete data. You can also contact us. Uninstalling the extension alone does not delete your server account. See the deletion guide.
-Q: Is InstaMail made by Google?
-A: No. InstaMail is an independent product operated by [LEGAL_OPERATOR_NAME].
+Q: Is SuperEasyOTP made by Google?
+A: No. SuperEasyOTP is an independent product operated by [LEGAL_OPERATOR_NAME].
 
 Final CTA heading: Keep the code close.
 Body: A small inbox for the moments you need it.
 Button: Add to Chrome (same real-listing rule).
-Footer: © [CURRENT_YEAR] [LEGAL_OPERATOR_NAME]. InstaMail is not affiliated with or endorsed by Google. Gmail, Google Workspace and Chrome are trademarks of Google LLC.
+Footer: © [CURRENT_YEAR] [LEGAL_OPERATOR_NAME]. SuperEasyOTP is not affiliated with or endorsed by Google. Gmail, Google Workspace and Chrome are trademarks of Google LLC.
 
 ## /support
 Title: How can we help?
@@ -358,15 +358,15 @@ Intro: For connection problems, missing codes or feedback, contact [SUPPORT_EMAI
 Troubleshooting:
 - Can't connect? Check that you selected the correct Google account and granted Gmail access. A managed account may require administrator approval.
 - No popup? Check Settings → Automatic sign-in popups, pin the icon, and make sure Chrome is active. Ambiguous or older messages may appear in the inbox without an alert.
-- Missing email? Refresh and check the account selector. InstaMail shows recent inbox mail, not Spam, Trash or archived messages.
+- Missing email? Refresh and check the account selector. SuperEasyOTP shows recent inbox mail, not Spam, Trash or archived messages.
 - Connection expired? Choose Reconnect next to that account.
 - Clipboard didn't work? Retry Copy code or select and copy the code manually.
 Support request note: Tell us your extension version, Chrome version and a description. Never send passwords, live OTPs, sign-in links or full email contents. Redact sensitive information from screenshots.
 Links: Privacy, Delete your data, Report a security issue.
 
 ## /security
-Title: Security at InstaMail
-Body: InstaMail handles account-access information. We use encrypted transport, restricted infrastructure access and encrypted storage for retained Google credentials. Message contents are normally processed inside the extension rather than archived on our servers. Our backend receives mailbox-change metadata and manages account access and notification watches.
+Title: Security at SuperEasyOTP
+Body: SuperEasyOTP handles account-access information. We use encrypted transport, restricted infrastructure access and encrypted storage for retained Google credentials. Message contents are normally processed inside the extension rather than archived on our servers. Our backend receives mailbox-change metadata and manages account access and notification watches.
 Body: No system can guarantee perfect security. Do not treat a recognized email or link as proof of its sender's legitimacy. Check the sender and destination before acting.
 Reporting: Report suspected vulnerabilities privately to [SECURITY_EMAIL]. Include reproducible steps using synthetic or your own test data. Do not access other people's data. We will acknowledge reports when practicable; no response-time or bounty promise is made.
 Review status: Show only factual, evidenced status. Do not display certification badges, “CASA certified”, “Google approved” or audit claims until appropriate review is completed and wording is authorized.
@@ -382,15 +382,15 @@ Production checks require real operator/contact/domain/effective date/jurisdicti
 
 # Source document: 05-PRIVACY-POLICY.md
 
-# InstaMail Privacy Policy
+# SuperEasyOTP Privacy Policy
 DRAFT — replace placeholders and confirm deployed behavior before publication. Remove this editorial line only after review.
 Effective date: [EFFECTIVE_DATE]
 
 ## Who we are
-InstaMail is operated by [LEGAL_OPERATOR_NAME], at [BUSINESS_OR_CONTACT_ADDRESS] (“we”, “us”). This policy explains how we handle information when you use our Chrome extension, website and supporting services. Contact [PRIVACY_EMAIL] with privacy questions or requests.
+SuperEasyOTP is operated by [LEGAL_OPERATOR_NAME], at [BUSINESS_OR_CONTACT_ADDRESS] (“we”, “us”). This policy explains how we handle information when you use our Chrome extension, website and supporting services. Contact [PRIVACY_EMAIL] with privacy questions or requests.
 
-## What InstaMail does
-InstaMail connects to Gmail accounts you authorize, displays recent inbox emails, and identifies possible verification codes and sign-in links. You can connect multiple accounts and choose whether recognized sign-in messages open an automatic extension popup.
+## What SuperEasyOTP does
+SuperEasyOTP connects to Gmail accounts you authorize, displays recent inbox emails, and identifies possible verification codes and sign-in links. You can connect multiple accounts and choose whether recognized sign-in messages open an automatic extension popup.
 
 ## Information we access and collect
 When you connect an account, we receive its Google account identifier, email address, authorized permissions and OAuth credentials. We do not ask for or receive your Google password. Google read-only Gmail authorization permits access to mailbox messages; it is not limited by Google to OTP emails.
@@ -409,7 +409,7 @@ We use information to connect and maintain authorized Gmail accounts; display re
 We request only permissions needed for these functions. This release does not send or delete Gmail messages or change their read status. Automatic popups can be turned off without disconnecting your inbox.
 
 ## Google user data and Limited Use
-InstaMail’s use and transfer of information received from Google APIs will adhere to the Google API Services User Data Policy, including its Limited Use requirements, and applicable Google Workspace and Chrome Web Store user-data policies.
+SuperEasyOTP’s use and transfer of information received from Google APIs will adhere to the Google API Services User Data Policy, including its Limited Use requirements, and applicable Google Workspace and Chrome Web Store user-data policies.
 
 We do not sell Google user data, transfer it to data brokers, use it to serve advertising, or use it to create, train or improve general-purpose AI or machine-learning models. We do not send email contents to a hosted AI service for detection in this release. We restrict Google user data to providing or improving the disclosed user-facing features and other uses permitted by the applicable policies.
 
@@ -431,7 +431,7 @@ On disconnect or deletion, we remove associated active records and credentials, 
 We use encrypted transport and encrypt stored Google refresh credentials, with access controls and restricted infrastructure permissions. No system is completely secure. Codes and sign-in links can grant access to accounts: avoid sharing them and take care when your screen is visible to others.
 
 ## Your choices and rights
-You can disable automatic popups, change the email display limit, remove individual Gmail accounts, or disconnect all accounts and request deletion in Settings. See [PUBLIC_DOMAIN]/delete-data for instructions and alternatives. You can revoke Google access through your Google Account's third-party connections settings. Revocation stops future authorized Google access but is not itself a deletion request for records already held by InstaMail.
+You can disable automatic popups, change the email display limit, remove individual Gmail accounts, or disconnect all accounts and request deletion in Settings. See [PUBLIC_DOMAIN]/delete-data for instructions and alternatives. You can revoke Google access through your Google Account's third-party connections settings. Revocation stops future authorized Google access but is not itself a deletion request for records already held by SuperEasyOTP.
 
 Uninstalling the extension alone does not notify us reliably or delete your backend account. Disconnect before uninstalling, or contact [PRIVACY_EMAIL] afterward.
 
@@ -441,7 +441,7 @@ Depending on where you live, you may have rights to access, correct, delete, res
 Information may be processed in [HOSTING_REGION] and in locations used by the listed providers. Where applicable law requires safeguards for international transfers, we will use appropriate safeguards and disclose further details on request.
 
 ## Children
-InstaMail is not directed to children under 13 or any higher minimum age required by applicable local law. We do not knowingly seek their personal information. Contact us if you believe a child has provided information inappropriately.
+SuperEasyOTP is not directed to children under 13 or any higher minimum age required by applicable local law. We do not knowingly seek their personal information. Contact us if you believe a child has provided information inappropriately.
 
 ## Website storage
 The public information website does not use behavioral advertising cookies or tracking pixels. Necessary authentication/session mechanisms may be used on service endpoints. If these practices change, we will update the policy and obtain consent where required before introducing the new processing.
@@ -460,36 +460,36 @@ Support: [SUPPORT_EMAIL]
 
 # Source document: 06-TERMS.md
 
-# InstaMail Terms of Use
+# SuperEasyOTP Terms of Use
 DRAFT — complete placeholders and review for the operator's jurisdiction before publication. Remove this editorial line after review.
 Effective date: [EFFECTIVE_DATE]
 
 ## 1. Agreement and operator
-These Terms govern your use of InstaMail, including its Chrome extension, website and supporting services, provided by [LEGAL_OPERATOR_NAME], [BUSINESS_OR_CONTACT_ADDRESS] (“we”, “us”). By accepting these Terms during onboarding and using InstaMail, you agree to them. If you do not agree, do not connect an account or use the service. Contact [SUPPORT_EMAIL] with questions.
+These Terms govern your use of SuperEasyOTP, including its Chrome extension, website and supporting services, provided by [LEGAL_OPERATOR_NAME], [BUSINESS_OR_CONTACT_ADDRESS] (“we”, “us”). By accepting these Terms during onboarding and using SuperEasyOTP, you agree to them. If you do not agree, do not connect an account or use the service. Contact [SUPPORT_EMAIL] with questions.
 
 ## 2. Eligibility and accounts
-You must have legal capacity to enter this agreement, meet applicable minimum-age requirements, and be authorized to connect every mailbox you add. If you use InstaMail for an organization, you are responsible for obtaining the organization's required permissions. Workspace administrators may restrict access.
+You must have legal capacity to enter this agreement, meet applicable minimum-age requirements, and be authorized to connect every mailbox you add. If you use SuperEasyOTP for an organization, you are responsible for obtaining the organization's required permissions. Workspace administrators may restrict access.
 
-You remain responsible for your Google accounts, devices and access credentials. Do not share live codes, sign-in links or session credentials with others. Notify us promptly of suspected unauthorized use of InstaMail.
+You remain responsible for your Google accounts, devices and access credentials. Do not share live codes, sign-in links or session credentials with others. Notify us promptly of suspected unauthorized use of SuperEasyOTP.
 
 ## 3. Service and permission
-InstaMail provides a compact view of recent Gmail inbox messages and detects possible verification codes and sign-in links. It can show automatic extension popups when enabled. You authorize the access necessary for these features through Google's permission flow. You may revoke access or disconnect as described in the Privacy Policy.
+SuperEasyOTP provides a compact view of recent Gmail inbox messages and detects possible verification codes and sign-in links. It can show automatic extension popups when enabled. You authorize the access necessary for these features through Google's permission flow. You may revoke access or disconnect as described in the Privacy Policy.
 
 The current release is read-only: it does not send, delete or mark messages as read in Gmail. A display or link action does not mean that the sender, message or destination has been independently verified as safe. A link can perform an account action when you choose to open it.
 
 ## 4. Availability and accuracy
-InstaMail depends on Google, Chrome, your network and third-party email senders. Notifications can be delayed, missed or unavailable; messages may be misclassified; codes and links can expire. We do not guarantee continuous availability, detection of every code, compatibility with every message format, exact popup positioning, or delivery within a particular time. You should retain access to Gmail for messages that are not displayed or recognized.
+SuperEasyOTP depends on Google, Chrome, your network and third-party email senders. Notifications can be delayed, missed or unavailable; messages may be misclassified; codes and links can expire. We do not guarantee continuous availability, detection of every code, compatibility with every message format, exact popup positioning, or delivery within a particular time. You should retain access to Gmail for messages that are not displayed or recognized.
 
 We may improve or change features, maintain the service, or discontinue features with reasonable notice where practicable and required. We will not use a change in terms to bypass required consent for a new use of Google user data.
 
 ## 5. Acceptable use
-Use InstaMail only for lawful access to accounts you own or are authorized to use. Do not attempt to access another person's mailbox, intercept others' authentication information, bypass security controls, exploit the service, disrupt infrastructure, distribute malicious content or use InstaMail to violate another service's terms or applicable law. Do not misrepresent your identity when requesting account access or support.
+Use SuperEasyOTP only for lawful access to accounts you own or are authorized to use. Do not attempt to access another person's mailbox, intercept others' authentication information, bypass security controls, exploit the service, disrupt infrastructure, distribute malicious content or use SuperEasyOTP to violate another service's terms or applicable law. Do not misrepresent your identity when requesting account access or support.
 
 ## 6. Privacy and your content
 Our Privacy Policy at [PUBLIC_DOMAIN]/privacy explains how data is accessed, used, shared and retained. You retain your rights in email and other content. You grant only the permissions reasonably necessary to provide the features you request, subject to the Privacy Policy and applicable Google policies. We do not acquire ownership of your emails or grant ourselves a general license to monetize them.
 
 ## 7. Intellectual property
-We or our licensors own InstaMail's software, branding and website materials, subject to applicable open-source licenses. We grant you a limited, nonexclusive right to use the service under these Terms. This does not restrict rights you have under applicable open-source licenses or mandatory law. Google, Gmail, Google Workspace and Chrome belong to their respective owner. InstaMail is independent and is not endorsed by Google.
+We or our licensors own SuperEasyOTP's software, branding and website materials, subject to applicable open-source licenses. We grant you a limited, nonexclusive right to use the service under these Terms. This does not restrict rights you have under applicable open-source licenses or mandatory law. Google, Gmail, Google Workspace and Chrome belong to their respective owner. SuperEasyOTP is independent and is not endorsed by Google.
 
 ## 8. Pricing
 The launch version is free. There are no subscription charges under these Terms. If we introduce optional paid features later, pricing and applicable terms will be presented before you agree to purchase. No silent conversion to a paid subscription will occur.
@@ -500,7 +500,7 @@ You may stop using the service at any time. Disconnect accounts and request dele
 We may restrict or suspend access where reasonably necessary to address misuse, protect users or comply with law or platform requirements. We will provide notice when practicable and legally permitted. Termination does not cancel applicable data-deletion obligations or mandatory consumer rights.
 
 ## 10. Disclaimers
-To the extent permitted by applicable law, the service is provided as available and without warranties beyond those expressly stated. This does not exclude any warranty, guarantee or remedy that cannot lawfully be excluded. InstaMail is not a substitute for your email provider, an identity verification service, or an assurance that a sign-in request is legitimate.
+To the extent permitted by applicable law, the service is provided as available and without warranties beyond those expressly stated. This does not exclude any warranty, guarantee or remedy that cannot lawfully be excluded. SuperEasyOTP is not a substitute for your email provider, an identity verification service, or an assurance that a sign-in request is legitimate.
 
 ## 11. Liability
 To the extent permitted by applicable law, we are not responsible for indirect or consequential losses arising from use of the service. Nothing in these Terms excludes or limits liability where doing so is prohibited, including applicable liability for fraud, deliberate misconduct, or mandatory consumer protections.
@@ -519,27 +519,27 @@ We will publish updated Terms with an effective date and give notice of material
 
 # Source document: 07-DATA-DELETION.md
 
-# Disconnect Gmail or delete your InstaMail data
+# Disconnect Gmail or delete your SuperEasyOTP data
 DRAFT — replace placeholders and confirm these controls are implemented before publishing.
 
 ## Remove one account
-1. Open InstaMail and choose Settings.
+1. Open SuperEasyOTP and choose Settings.
 2. Under Accounts, choose Remove next to the Gmail address.
 3. Confirm disconnecting that account.
 
-This stops future InstaMail updates for that account, removes its active connection records and stored credentials, and clears its recent-email cache in the extension. We attempt to stop Google's mailbox watch and revoke the associated access. If Google cannot be reached, the interface explains any remaining provider-side step. Removing the account does not delete any emails from Gmail.
+This stops future SuperEasyOTP updates for that account, removes its active connection records and stored credentials, and clears its recent-email cache in the extension. We attempt to stop Google's mailbox watch and revoke the associated access. If Google cannot be reached, the interface explains any remaining provider-side step. Removing the account does not delete any emails from Gmail.
 
 ## Delete everything
 1. Open Settings → Privacy.
-2. Select Disconnect all and delete InstaMail data.
+2. Select Disconnect all and delete SuperEasyOTP data.
 3. Review the connected accounts and confirm.
 
-We disconnect linked accounts, invalidate InstaMail sessions, and remove active account records, credentials and queued events. Temporary operational records and backups expire according to the retention periods in our Privacy Policy; backups expire within 30 days. We will not restore deleted credentials to active service.
+We disconnect linked accounts, invalidate SuperEasyOTP sessions, and remove active account records, credentials and queued events. Temporary operational records and backups expire according to the retention periods in our Privacy Policy; backups expire within 30 days. We will not restore deleted credentials to active service.
 
 ## Already uninstalled?
-Uninstalling alone does not reliably notify our backend. Email [PRIVACY_EMAIL] with “Delete my InstaMail data”. Use a connected email address where possible. We may ask for proportionate proof of ownership, but never your password, OTP or login link. We will acknowledge and process the request within applicable legal deadlines and explain any legitimate retention requirement.
+Uninstalling alone does not reliably notify our backend. Email [PRIVACY_EMAIL] with “Delete my SuperEasyOTP data”. Use a connected email address where possible. We may ask for proportionate proof of ownership, but never your password, OTP or login link. We will acknowledge and process the request within applicable legal deadlines and explain any legitimate retention requirement.
 
-You can also visit your Google Account's third-party connections settings at https://myaccount.google.com/connections to remove InstaMail's access. This prevents future Google access but does not itself erase records previously held by InstaMail. Send a deletion request as well.
+You can also visit your Google Account's third-party connections settings at https://myaccount.google.com/connections to remove SuperEasyOTP's access. This prevents future Google access but does not itself erase records previously held by SuperEasyOTP. Send a deletion request as well.
 
 ## Before you leave
 You can turn off automatic popups without deleting your account: Settings → Automatic sign-in popups → Off. Your inbox and copy-code buttons remain available.
@@ -551,7 +551,7 @@ Questions: [SUPPORT_EMAIL]. Privacy details: [PUBLIC_DOMAIN]/privacy.
 
 # Source document: 08-LAUNCH-AND-VERIFICATION.md
 
-# InstaMail launch and verification package
+# SuperEasyOTP launch and verification package
 Prepared 10 November 2026. Verify live Google requirements immediately before submission. Store review and Google OAuth review are separate; neither is guaranteed by these drafts.
 
 ## A. External setup order
@@ -569,7 +569,7 @@ Prepared 10 November 2026. Verify live Google requirements immediately before su
 
 ## B. Scope justification draft
 Requested scope: https://www.googleapis.com/auth/gmail.readonly
-“InstaMail displays the user's most recent Gmail inbox messages and identifies sign-in codes and links within those messages. Users see email previews and can copy a code or open a link in a visible extension interface. Message body access is required because codes and links commonly appear only in message bodies. Metadata-only access is insufficient. We do not require sending, modifying or deleting messages and do not request those permissions. The backend manages per-account OAuth credentials and Gmail notification watches; the extension normally retrieves and parses message contents. We disclose this architecture and follow Google's Limited Use requirements.”
+“SuperEasyOTP displays the user's most recent Gmail inbox messages and identifies sign-in codes and links within those messages. Users see email previews and can copy a code or open a link in a visible extension interface. Message body access is required because codes and links commonly appear only in message bodies. Metadata-only access is insufficient. We do not require sending, modifying or deleting messages and do not request those permissions. The backend manages per-account OAuth credentials and Gmail notification watches; the extension normally retrieves and parses message contents. We disclose this architecture and follow Google's Limited Use requirements.”
 
 Appropriate use category: email productivity enhancement. Explain actual benefits and visible features; Google decides eligibility. Do not artificially describe the product as a full compose/send email client. Include architecture diagram, permission mapping and security documentation.
 
@@ -577,7 +577,7 @@ Backend review statement: “Our backend stores encrypted refresh credentials ca
 
 ## C. Google review demo video script
 Use test accounts and synthetic messages. Show actual OAuth client/app identity as requested by reviewers, without exposing secrets.
-1. Public website and privacy policy, matching InstaMail branding.
+1. Public website and privacy policy, matching SuperEasyOTP branding.
 2. Fresh installation, welcome disclosure, click Connect Gmail, complete account choice and permission flow.
 3. Latest inbox messages load; add a second account; switch and use combined view.
 4. Show a synthetic OTP email and exact copy action; show a sign-in link and destination hostname.
@@ -588,12 +588,12 @@ Use test accounts and synthetic messages. Show actual OAuth client/app identity 
 9. Show all OAuth client flows if multiple production clients exist. Keep consent flow readable in English where Google's instructions request it.
 
 ## D. Chrome Web Store listing copy
-Name: InstaMail
+Name: SuperEasyOTP
 Short description: Recent Gmail emails, sign-in codes and login links in a compact Chrome extension.
 
 Detailed description:
 “Your inbox and your sign-in codes, a click away.
-InstaMail brings recent emails from your Gmail accounts into your Chrome toolbar. View your latest messages, copy recognized verification codes, and open sign-in links directly from each email row.
+SuperEasyOTP brings recent emails from your Gmail accounts into your Chrome toolbar. View your latest messages, copy recognized verification codes, and open sign-in links directly from each email row.
 • Connect multiple Gmail and Google Workspace accounts.
 • View all connected inboxes together or switch accounts.
 • Choose to show your latest 1, 3 or 5 emails.
@@ -601,11 +601,11 @@ InstaMail brings recent emails from your Gmail accounts into your Chrome toolbar
 • Open detected sign-in links with the destination hostname visible.
 • Enable or disable automatic sign-in popups.
 • Use light, dark or system theme.
-InstaMail requests read-only Gmail access. It does not send or delete emails or mark messages read. Message contents are normally processed inside the extension. A supporting service manages encrypted account credentials and mailbox-change notifications; those credentials permit Gmail access.
+SuperEasyOTP requests read-only Gmail access. It does not send or delete emails or mark messages read. Message contents are normally processed inside the extension. A supporting service manages encrypted account credentials and mailbox-change notifications; those credentials permit Gmail access.
 Detection and notification timing depend on message format, Google, your connection and Chrome. Some messages may not be recognized. Chrome must be running to display extension updates. Pin the icon for convenient access.
 Privacy: [PUBLIC_DOMAIN]/privacy
 Support: [SUPPORT_EMAIL]
-InstaMail is independent and not affiliated with Google.”
+SuperEasyOTP is independent and not affiliated with Google.”
 
 ## E. Permission explanations
 identity: starts the user-initiated Google authorization flow and handles the extension return URL.
@@ -621,7 +621,7 @@ Single purpose statement: “Provide a compact view of the user's Gmail inboxes 
 ## F. Privacy-practices declaration worksheet
 Use the actual current dashboard categories; this worksheet is not a substitute for reading them.
 - Personally identifiable information: Google account identifiers/email addresses, support correspondence, relevant network information.
-- Authentication information: Google OAuth credentials and InstaMail session credentials. Do not describe this as “no authentication information” just because passwords are not requested.
+- Authentication information: Google OAuth credentials and SuperEasyOTP session credentials. Do not describe this as “no authentication information” just because passwords are not requested.
 - Personal communications: email sender/recipient, subject, text and links processed in the extension. Local processing does not excuse false data-handling declarations.
 - Website content/browsing history: no arbitrary websites read or tracked in this release. Describe Gmail communications accurately under the dashboard's appropriate categories.
 - Financial/health information: not intentionally targeted or categorized, but emails may contain sensitive information. Review the dashboard definitions against actual access rather than asserting no sensitive contents could be encountered.
@@ -630,7 +630,7 @@ Use the actual current dashboard categories; this worksheet is not a substitute 
 
 ## G. In-product consent copy
 Before Connect Gmail:
-“InstaMail needs read-only access to Gmail to show your recent emails and recognize sign-in codes and links. Email contents are normally processed in this extension. Our backend stores encrypted account credentials and receives mailbox-change notifications to keep your accounts connected. These credentials authorize Gmail access. We don't sell Gmail data or use it for ads or general AI training. You can disconnect at any time.”
+“SuperEasyOTP needs read-only access to Gmail to show your recent emails and recognize sign-in codes and links. Email contents are normally processed in this extension. Our backend stores encrypted account credentials and receives mailbox-change notifications to keep your accounts connected. These credentials authorize Gmail access. We don't sell Gmail data or use it for ads or general AI training. You can disconnect at any time.”
 Links: Privacy Policy; Terms.
 Button: Connect Gmail.
 Supporting agreement: “By continuing, you agree to the Terms and acknowledge the Privacy Policy.” Ensure this is visibly adjacent to the button, not hidden.
@@ -638,7 +638,7 @@ Supporting agreement: “By continuing, you agree to the Terms and acknowledge t
 After connection:
 “Show sign-in codes automatically” [On]
 “New recognized sign-in emails can open a popup while Chrome is active. You can turn this off in Settings.”
-Pin hint: “Pin InstaMail in Chrome's Extensions menu to keep your inbox close.”
+Pin hint: “Pin SuperEasyOTP in Chrome's Extensions menu to keep your inbox close.”
 
 ## H. Release assets and checks
 Generate correct manifest icons (16/32/48/128 PNG), branded screenshots showing real shipped UI, store promotional art at the current dashboard-required dimensions, extension ZIP with manifest at root, package/version metadata and reproducible build instructions. Confirm current screenshot dimensions before export.

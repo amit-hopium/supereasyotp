@@ -5,7 +5,7 @@ Use after `pnpm store:ready` succeeds.
 ## Upload
 
 1. [Chrome Web Store Developer Dashboard](https://chrome.google.com/webstore/devconsole) → **New item** (or your draft).
-2. Upload **`InstaMail-extension.zip`** from the repo root (produced by `pnpm extension:zip`).
+2. Upload **`supereasyotp-extension.zip`** from the repo root (produced by `pnpm extension:zip`).
 3. **Privacy policy:** `https://supereasyotp.com/privacy/`
 4. **Homepage:** `https://supereasyotp.com`
 5. **Support:** `amit@hopiumstudio.com`

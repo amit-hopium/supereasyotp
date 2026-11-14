@@ -1,7 +1,7 @@
-# InstaMail product requirements
+# SuperEasyOTP product requirements
 
 ## 1. Product and outcome
-InstaMail is a lightweight Chrome email companion for multiple Gmail accounts. Users glance at recent emails and retrieve authentication codes or sign-in links without switching to Gmail. It supports both deliberate inbox checking and automatic arrival alerts.
+SuperEasyOTP is a lightweight Chrome email companion for multiple Gmail accounts. Users glance at recent emails and retrieve authentication codes or sign-in links without switching to Gmail. It supports both deliberate inbox checking and automatic arrival alerts.
 
 Primary job: “I just requested a login email. Show the actionable code or link as soon as it arrives, with one-click copy.” Secondary job: “Show my latest emails without opening a full email app.”
 
@@ -22,7 +22,7 @@ No hosted LLM dependency in P0. Detection runs deterministically in the extensio
 2. Explain: “Your recent emails and sign-in codes, one click away.” Show a short access disclosure and Connect Gmail.
 3. User clicks Connect Gmail; Google account chooser and consent flow appear. Explain read-only access before consent; link Privacy and Terms. Do not request a Gmail password.
 4. On success, show connected address, load newest inbox messages, and register push watch.
-5. Offer Add another Gmail account and a concise instruction to pin InstaMail. Pinning is user-controlled, not automatic.
+5. Offer Add another Gmail account and a concise instruction to pin SuperEasyOTP. Pinning is user-controlled, not automatic.
 6. Show “Automatically show sign-in codes” enabled and directly editable. Finish opens inbox.
 
 Do not mark connection successful until token scope, account identity and initial Gmail request succeed. Denial returns to welcome with Try again; cancellation is neutral. Workspace admin denial explains that an administrator may need to allow the app. Do not suggest bypassing admin restrictions. Reconnecting one account must leave the others usable.
@@ -60,7 +60,7 @@ Setting off suppresses every automatic popup; email fetching, detection and inli
 - Automatic sign-in popups: on/off; default on with onboarding disclosure.
 - Theme: system/light/dark; default system.
 - Accounts: address, connection state, reconnect, remove, add account. No arbitrary paid account cap; validate with at least three independent Google accounts.
-- Privacy: Disconnect all and delete InstaMail data, privacy policy, support.
+- Privacy: Disconnect all and delete SuperEasyOTP data, privacy policy, support.
 - About: version, terms, store link once published.
 Settings persist locally without Chrome Sync. Removing an account clears its session cache and future events. Removing the last account returns to welcome. Full deletion requires a clear confirmation and must be retryable if offline.
 

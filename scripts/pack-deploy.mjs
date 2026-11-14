@@ -1,10 +1,10 @@
 import {execSync} from 'node:child_process';
 import {existsSync} from 'node:fs';
 
-const tarball='InstaMail-deploy.tar.gz';
+const tarball='supereasyotp-deploy.tar.gz';
 const excludes=[
-  '--exclude=node_modules','--exclude=.git','--exclude=InstaMail-deploy.tar.gz',
-  '--exclude=InstaMail-extension.zip','--exclude=.env','--exclude=.env.production',
+  '--exclude=node_modules','--exclude=.git','--exclude=supereasyotp-deploy.tar.gz',
+  '--exclude=supereasyotp-extension.zip','--exclude=.env','--exclude=.env.production',
   '--exclude=apps/web/dist','--exclude=apps/extension/dist/assets',
 ].join(' ');
 

@@ -2,7 +2,7 @@ import {existsSync,readFileSync} from 'node:fs';
 import {spawnSync} from 'node:child_process';
 
 const dist='apps/web/dist';
-const tar='InstaMail-site.tar.gz';
+const tar='supereasyotp-site.tar.gz';
 const paths=['index.html','privacy/index.html','terms/index.html'];
 let fail=0;
 

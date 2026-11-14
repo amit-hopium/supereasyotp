@@ -22,7 +22,7 @@ if(values.TOKEN_KEY&&Buffer.from(values.TOKEN_KEY,'base64').length!==32)errors.p
 if(values.POSTGRES_PASSWORD&&values.DATABASE_URL){
   try {
     const url=new URL(values.DATABASE_URL);
-    if(url.protocol!=='postgres:'||url.hostname!=='postgres'||url.username!=='instamail'||decodeURIComponent(url.password)!==values.POSTGRES_PASSWORD)errors.push('DATABASE_URL must use the production Postgres service and matching password');
+    if(url.protocol!=='postgres:'||url.hostname!=='postgres'||url.username!=='instamail'||decodeURIComponent(url.password)!==values.POSTGRES_PASSWORD)errors.push('DATABASE_URL must use the production Postgres service and matching password (deployed role: instamail)');
   } catch { errors.push('DATABASE_URL is invalid'); }
 }
 if(values.REDIS_URL!=='redis://redis:6379')errors.push('REDIS_URL must point to the private Redis service');

@@ -244,7 +244,7 @@ function App(){
     if(new URLSearchParams(location.search).get('embed')==='1')document.documentElement.classList.add('demo-embed');
     const params=new URLSearchParams(location.search);
     if(params.get('alert')==='1')applyDemoOtp(params.get('code')||'004291');
-    const onMsg=(e:MessageEvent)=>{if(e.data?.type==='instamail-demo-otp')applyDemoOtp(String(e.data.code||'004291'))};
+    const onMsg=(e:MessageEvent)=>{if(e.data?.type==='supereasyotp-demo-otp')applyDemoOtp(String(e.data.code||'004291'))};
     window.addEventListener('message',onMsg);
     return()=>window.removeEventListener('message',onMsg);
   },[]);
@@ -256,7 +256,7 @@ function App(){
       // Measure the popup container itself so the iframe height tracks content, not the viewport.
       const main=document.querySelector('main.popup') as HTMLElement|null;
       const h=Math.ceil(main?main.getBoundingClientRect().height:document.body.scrollHeight);
-      try{parent.postMessage({type:'instamail-demo-resize',height:h},location.origin);}catch{}
+      try{parent.postMessage({type:'supereasyotp-demo-resize',height:h},location.origin);}catch{}
     };
     post();
     const ro=new ResizeObserver(post);
@@ -270,7 +270,7 @@ function App(){
   useLayoutEffect(()=>{
     if(!embedDemo)return;
     const h=Math.ceil(document.querySelector('main.popup')?.getBoundingClientRect().height||0);
-    try{parent.postMessage({type:'instamail-demo-resize',height:h},location.origin);}catch{}
+    try{parent.postMessage({type:'supereasyotp-demo-resize',height:h},location.origin);}catch{}
   },[embedDemo,mode,preview,status,expanded,pickerOpen,loading,inboxLoading,hydrated,mails.length,settings.condensed,settings.limit,settings.theme,alertMode]);
 
   useEffect(()=>{

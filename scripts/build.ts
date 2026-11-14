@@ -85,7 +85,7 @@ const extensionToggleScript=`<script>
     setOpen(false);
   });
   window.addEventListener('message',(e)=>{
-    if(e.source!==frame.contentWindow||e.data?.type!=='instamail-demo-resize')return;
+    if(e.source!==frame.contentWindow||e.data?.type!=='supereasyotp-demo-resize')return;
     const h=Math.min(600,Math.max(96,Math.round(Number(e.data.height)||0)));
     frame.style.height=h+'px';
     frame.classList.add('is-sized');
@@ -209,7 +209,7 @@ const landingScript=`<script>
   const extBtn=document.getElementById('demo-ext-icon');
   if(!btn||!pop||!frame)return;
   const rand=()=>String(Math.floor(100000+Math.random()*900000));
-  const send=(code)=>{try{frame.contentWindow?.postMessage({type:'instamail-demo-otp',code},location.origin);}catch{}};
+  const send=(code)=>{try{frame.contentWindow?.postMessage({type:'supereasyotp-demo-otp',code},location.origin);}catch{}};
   const openPopup=()=>{
     pop.hidden=false;
     if(extBtn)extBtn.setAttribute('aria-expanded','true');
@@ -277,7 +277,7 @@ const landingScript=`<script>
   btn.addEventListener('click',()=>{if(!counting)startCountdown();});
   const MAX_POP=600;
   window.addEventListener('message',(e)=>{
-    if(e.source!==frame.contentWindow||e.data?.type!=='instamail-demo-resize')return;
+    if(e.source!==frame.contentWindow||e.data?.type!=='supereasyotp-demo-resize')return;
     const h=Math.min(MAX_POP,Math.max(96,Math.round(Number(e.data.height)||0)));
     frame.style.height=h+'px';
     frame.classList.add('is-sized');
@@ -309,7 +309,7 @@ const demoVideoBlock=`<div class="demo-video" id="demo-video">
     </div>
   </div>
   <div class="demo-outro" id="demo-outro" aria-hidden="true" hidden>
-    <img class="demo-outro-logo" src="/assets/instamail-logo-512.png" width="56" height="56" alt="">
+    <img class="demo-outro-logo" src="/assets/supereasyotp-logo-512.png" width="56" height="56" alt="">
     <p class="demo-outro-title">SuperEasyOTP <span class="demo-outro-wink">;)</span></p>
     <p class="demo-outro-sub">Codes in your inbox, one click away.</p>
   </div>
@@ -401,7 +401,7 @@ const demoVideoScript=`<script>
     await wait(1000);
     openPopup();
     await ensurePopupLoaded();
-    try{frame.contentWindow.postMessage({type:'instamail-demo-otp',code},location.origin);}catch{}
+    try{frame.contentWindow.postMessage({type:'supereasyotp-demo-otp',code},location.origin);}catch{}
     await wait(500);
     // 3) Cursor moves onto the popup's Copy button and copies the OTP.
     const copyBtn=findCopyBtn();
@@ -810,5 +810,5 @@ for(const [route,page] of Object.entries(pages)){
 await cp('apps/extension/dist','apps/web/dist/demo',{recursive:true});
 // The extension popup is served from /demo/, so its absolute /assets/ references must point at /demo/assets/.
 for(const f of ['popup.html','welcome.html']){const fp=`apps/web/dist/demo/${f}`;if(existsSync(fp)){const h=await readFile(fp,'utf8');await writeFile(fp,h.replace(/(["'(])\/assets\//g,'$1/demo/assets/'));}}
-for(const f of ['landing-bg.jpg','instamail-logo-1024.png','instamail-logo-512.png','demo.mp4'])if(existsSync(`apps/web/assets/${f}`)){await mkdir('apps/web/dist/assets',{recursive:true});await cp(`apps/web/assets/${f}`,`apps/web/dist/assets/${f}`);}
+for(const f of ['landing-bg.jpg','supereasyotp-logo-1024.png','supereasyotp-logo-512.png','demo.mp4'])if(existsSync(`apps/web/assets/${f}`)){await mkdir('apps/web/dist/assets',{recursive:true});await cp(`apps/web/assets/${f}`,`apps/web/dist/assets/${f}`);}
 console.log(legalVars?'Built extension, API, and static website (legal.env applied).':'Built extension, API, and static website. Legal placeholders block public release — copy build-pack/legal.env.example to build-pack/legal.env.');

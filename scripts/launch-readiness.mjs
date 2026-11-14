@@ -11,14 +11,14 @@ let fail=0;
 const ok=(m)=>console.log('OK  ',m);
 const bad=(m)=>{console.log('FAIL',m);fail++};
 
-const zip=root+'/InstaMail-site.tar.gz';
-const ext=root+'/InstaMail-extension.zip';
+const zip=root+'/supereasyotp-site.tar.gz';
+const ext=root+'/supereasyotp-extension.zip';
 const legal=root+'/build-pack/legal.env';
 const hostinger=root+'/build-pack/hostinger-site.env';
 
 existsSync(legal)?ok('build-pack/legal.env'):bad('build-pack/legal.env missing');
-existsSync(ext)?ok('InstaMail-extension.zip'):bad('InstaMail-extension.zip — pnpm extension:zip');
-existsSync(zip)?ok('InstaMail-site.tar.gz'):bad('InstaMail-site.tar.gz — pnpm site:pack');
+existsSync(ext)?ok('supereasyotp-extension.zip'):bad('supereasyotp-extension.zip — pnpm extension:zip');
+existsSync(zip)?ok('supereasyotp-site.tar.gz'):bad('supereasyotp-site.tar.gz — pnpm site:pack');
 existsSync(hostinger)?ok('hostinger-site.env (deploy ready)'):console.log('—   hostinger-site.env optional (hPanel upload ok)');
 
 const pre=spawnSync(process.execPath,[root+'/scripts/preflight-site-upload.mjs'],{encoding:'utf8'});

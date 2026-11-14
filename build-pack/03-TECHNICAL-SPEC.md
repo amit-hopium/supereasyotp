@@ -1,4 +1,4 @@
-# InstaMail engineering specification
+# SuperEasyOTP engineering specification
 
 ## 1. Chosen architecture
 TypeScript monorepo, pnpm workspaces. Extension: React + Vite, Manifest V3, minimum Chrome 127. Website: React + Vite with prerendered/static legal routes. Backend: Node.js active LTS + Fastify + ws. PostgreSQL stores users, accounts, device sessions and watch state. Redis provides short-lived tickets, per-user event fanout and locks. Use maintained compatible package versions and lockfile; verify actual API versions during implementation.

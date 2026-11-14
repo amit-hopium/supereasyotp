@@ -44,7 +44,7 @@ if(build!==0){console.error('FAIL release build');process.exit(1);}
 console.log('OK   release build');
 
 if(run('pnpm',['extension:zip'])!==0){console.error('FAIL extension:zip');process.exit(1);}
-console.log('OK   SuperEasyOTP-extension.zip (InstaMail-extension.zip)');
+console.log('OK   supereasyotp-extension.zip (supereasyotp-extension.zip)');
 
 const live=run(process.execPath,['scripts/verify-live-site.mjs'],{SITE_URL:siteUrl.replace(/\/$/,'')});
 if(live!==0){
@@ -53,7 +53,7 @@ if(live!==0){
 
 console.log(`
 Ready for Chrome Web Store upload:
-  ZIP: ${root}/InstaMail-extension.zip
+  ZIP: ${root}/supereasyotp-extension.zip
   Listing copy: build-pack/CHROME-STORE-SUBMIT.md
   Privacy URL: ${siteUrl.replace(/\/$/,'')}/privacy/
   OAuth / demo video: build-pack/08-LAUNCH-AND-VERIFICATION.md (sections B, C, E, F)

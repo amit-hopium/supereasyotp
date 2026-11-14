@@ -2,7 +2,7 @@ import {spawnSync} from 'node:child_process';
 import {existsSync} from 'node:fs';
 
 const host=process.env.VPS_HOST||'root@189.72.149.83';
-const remoteDir=process.env.VPS_INSTAMAIL||'/opt/instamail';
+const remoteDir=process.env.VPS_INSTAMAIL||'/opt/supereasyotp';
 const dist='apps/web/dist';
 
 if(!existsSync(dist+'/privacy/index.html')){

@@ -15,11 +15,11 @@ if(/\[[A-Z][A-Z0-9_]+\]/.test(html)){
   process.exit(1);
 }
 
-const out='InstaMail-site.tar.gz';
+const out='supereasyotp-site.tar.gz';
 mkdir('dist-packs',{recursive:true}).catch(()=>{});
 const r=spawnSync('tar',['-czf',out,'-C',dist,'.'],{stdio:'inherit'});
 if(r.status!==0)process.exit(r.status??1);
 console.log(`Created ${out} (${dist} contents). Upload to VPS and extract to site root.`);
 console.log('Example (Hostinger, adjust path):');
-console.log('  scp InstaMail-site.tar.gz root@YOUR_VPS:/root/');
-console.log('  ssh root@YOUR_VPS \'mkdir -p /var/www/hopiumstudio.com && tar -xzf /root/InstaMail-site.tar.gz -C /var/www/hopiumstudio.com\'');
+console.log('  scp supereasyotp-site.tar.gz root@YOUR_VPS:/root/');
+console.log('  ssh root@YOUR_VPS \'mkdir -p /var/www/hopiumstudio.com && tar -xzf /root/supereasyotp-site.tar.gz -C /var/www/hopiumstudio.com\'');
