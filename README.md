@@ -26,7 +26,15 @@ Open http://localhost:4173. The homepage embeds an interactive demo with synthet
 - `pnpm extension:zip` → `InstaMail-extension.zip`
 - API: `apps/api/dist/server.js`; website: `apps/web/dist`; extension: `apps/extension/dist`.
 
-See `docs/IMPLEMENTATION-REPORT.md` for limitations and verification evidence. No deployment or public release has been performed. The build pack remains the product authority.
+## Chrome Web Store finish line
+
+1. `pnpm store:ready` — builds production extension ZIP and checks legal + API config.
+2. Upload `InstaMail-extension.zip` using **`build-pack/CHROME-STORE-SUBMIT.md`** (copy-paste listing + permissions).
+3. Google OAuth scope review is separate; use demo script in **`build-pack/08-LAUNCH-AND-VERIFICATION.md`** (sections B–C).
+
+Live site: https://supereasyotp.com · API: https://api.hopiumstudio.com
+
+See `build-pack/` for legal copy and launch verification drafts.
 
 ## Low-cost push pilot deployment
 The production Compose stack, HTTPS proxy, isolated Postgres/Redis network, production environment template, and Google Pub/Sub/Cloud Scheduler setup sequence are in `docs/PUSH-DEPLOYMENT.md`. Run `pnpm production:check` before deployment. This is deployable configuration, not a live service: a VPS, DNS record, Google service accounts, authenticated push subscription, and scheduler job still need to be created.
