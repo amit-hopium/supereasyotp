@@ -1,5 +1,5 @@
 const paths=['','privacy/','terms/','delete-data/','security/','support/'];
-const base=process.env.SITE_URL||'https://www.hopiumstudio.com';
+const base=process.env.SITE_URL||'https://supereasyotp.com';
 let fail=0;
 for(const p of paths){
   const url=base+'/'+p;

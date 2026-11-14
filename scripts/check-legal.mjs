@@ -1,6 +1,6 @@
 import {readFileSync,existsSync} from 'node:fs';
 
-const legalFile='build-pack/legal.env';
+const legalFile=existsSync('build-pack/legal.env')?'build-pack/legal.env':'build-pack/legal.release.env';
 const example=readFileSync('build-pack/legal.env.example','utf8');
 const requiredKeys=example.split(/\r?\n/).filter(l=>l&&!l.startsWith('#')&&l.includes('=')).map(l=>l.slice(0,l.indexOf('=')));
 const placeholder=/\[[A-Z][A-Z0-9_]+\]/g;
@@ -8,7 +8,7 @@ const placeholder=/\[[A-Z][A-Z0-9_]+\]/g;
 const errors=[];
 
 if(!existsSync(legalFile)){
-  errors.push('Missing build-pack/legal.env (copy from build-pack/legal.env.example)');
+  errors.push('Missing build-pack/legal.env and build-pack/legal.release.env');
 }else{
   const env=Object.fromEntries(readFileSync(legalFile,'utf8').split(/\r?\n/).filter(l=>l&&!l.startsWith('#')&&l.includes('=')).map(l=>{
     const i=l.indexOf('=');

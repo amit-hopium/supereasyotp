@@ -23,7 +23,8 @@
     "site:deploy-vps": "node scripts/deploy-site-vps.mjs",
     "site:deploy-hostinger": "node scripts/preflight-site-upload.mjs && node scripts/deploy-site-hostinger.mjs",
     "launch:readiness": "node scripts/launch-readiness.mjs",
-    "launch:resume": "node scripts/launch-readiness.mjs"
+    "launch:resume": "node scripts/launch-readiness.mjs",
+    "store:ready": "node scripts/store-ready.mjs"
   },
   "dependencies": {
     "@fastify/cors": "^11.1.0",

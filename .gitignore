@@ -12,6 +12,7 @@ build-pack/hostinger-site.env
 !.env.example
 !.env.production.example
 *.env
+!build-pack/legal.release.env
 
 # local build artifacts
 *.zip

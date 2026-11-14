@@ -7,7 +7,9 @@ import {marked} from 'marked';
 
 const readEnv=(file:string)=>existsSync(file)?Object.fromEntries(readFileSync(file,'utf8').split(/\r?\n/).filter(l=>l&&!l.startsWith('#')).map(l=>{const i=l.indexOf('=');return [l.slice(0,i),l.slice(i+1)]})):{} as Record<string,string>;
 const applyLegal=(text:string,vars:Record<string,string>)=>{let out=text;for(const [k,v] of Object.entries(vars))out=out.split('['+k+']').join(v);return out};
-const legalVars:Record<string,string>|null=existsSync('build-pack/legal.env')?{...readEnv('build-pack/legal.env'),CURRENT_YEAR:String(new Date().getFullYear())}:null;
+const loadLegalFile=(file:string)=>existsSync(file)?readEnv(file):null;
+const legalBase=loadLegalFile('build-pack/legal.env')||loadLegalFile('build-pack/legal.release.env');
+const legalVars:Record<string,string>|null=legalBase?{...legalBase,CURRENT_YEAR:String(new Date().getFullYear())}:null;
 const legal=(s:string)=>legalVars?applyLegal(s,legalVars):s;
 const esc=(s:string)=>s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');
 
@@ -17,7 +19,8 @@ const icons=Object.fromEntries(iconSizes.map(s=>[String(s),'icons/'+s+'.png']));
 const iconRun=spawnSync(process.execPath,['scripts/icons.mjs'],{stdio:'inherit'});
 if(iconRun.status!==0)throw Error('Icon generation failed');
 
-await build({root:'apps/extension',define:{SITE_URL:JSON.stringify(process.env.SITE_URL||'http://localhost:4173')},build:{rollupOptions:{input:{popup:'apps/extension/popup.html',welcome:'apps/extension/welcome.html'}}}});
+const siteUrl=process.env.SITE_URL||readEnv('.env.production').SITE_URL||readEnv('.env').SITE_URL||'http://localhost:4173';
+await build({root:'apps/extension',define:{SITE_URL:JSON.stringify(siteUrl)},build:{rollupOptions:{input:{popup:'apps/extension/popup.html',welcome:'apps/extension/welcome.html'}}}});
 await bundle({entryPoints:['apps/extension/worker.ts'],outfile:'apps/extension/dist/worker.js',bundle:true,format:'esm',define:{API_URL:JSON.stringify(api)}});
 await mkdir('apps/extension/dist/icons',{recursive:true});
 await cp('apps/extension/icons', 'apps/extension/dist/icons', {recursive:true});
@@ -741,7 +744,7 @@ pages.docs={
   title:'Docs — SuperEasyOTP',
   description:'Product guides, Gmail setup, verification codes, and legal reference for SuperEasyOTP.',
   nav:'docs',
-  body:docsBody('https://supereasyotps.com/docs/','Docs — SuperEasyOTP',`<div class="docs-hero-block"><h1>Docs</h1></div>${renderDemoVideo()}<section aria-labelledby="doc-guides-heading"><h2 class="doc-section-title" id="doc-guides-heading">Product guides</h2><div class="docs-list">${docGuideCards}</div></section><section aria-labelledby="doc-legal-heading"><h2 class="doc-section-title" id="doc-legal-heading">Legal &amp; trust</h2><div class="docs-list">${docLegalCards}</div></section>`),
+  body:docsBody(`${legalVars?.PUBLIC_DOMAIN?.replace(/\/$/,'')||'https://supereasyotp.com'}/docs/`,'Docs — SuperEasyOTP',`<div class="docs-hero-block"><h1>Docs</h1></div>${renderDemoVideo()}<section aria-labelledby="doc-guides-heading"><h2 class="doc-section-title" id="doc-guides-heading">Product guides</h2><div class="docs-list">${docGuideCards}</div></section><section aria-labelledby="doc-legal-heading"><h2 class="doc-section-title" id="doc-legal-heading">Legal &amp; trust</h2><div class="docs-list">${docLegalCards}</div></section>`),
   bare:true,
 };
 
