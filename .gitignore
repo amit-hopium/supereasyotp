@@ -1,0 +1,27 @@
+node_modules/
+.env
+.env.production
+build-pack/legal.env
+build-pack/hostinger-site.env
+**/dist/
+*.log
+
+# secrets and local env (examples stay committed)
+.env
+.env.*
+!.env.example
+!.env.production.example
+*.env
+
+# local build artifacts
+*.zip
+*.tar.gz
+.pnpm-store/
+apps/*/dist/
+apps/web/dist/
+dist-packs/
+
+# internal launch/ops docs (not for public repo)
+docs/
+.cursor/
+.vercel/

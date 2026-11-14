@@ -1,0 +1,25 @@
+# Merge into infra/Caddyfile when PUBLIC_DOMAIN is served from the same VPS.
+# Set PUBLIC_HOST in .env.production (e.g. hopiumstudio.com).
+#
+# In compose.production.yaml, add to caddy volumes:
+#   - ../apps/web/dist:/srv/site:ro
+#
+# And environment:
+#   PUBLIC_HOST: ${PUBLIC_HOST:?}
+
+{$API_HOST} {
+  encode zstd gzip
+  reverse_proxy api:8787
+}
+
+{$PUBLIC_HOST} {
+  encode zstd gzip
+  root * /srv/site
+  file_server
+  try_files {path} {path}/index.html {path}.html
+}
+
+# Optional www redirect:
+# www.{$PUBLIC_HOST} {
+#   redir https://{$PUBLIC_HOST}{uri} permanent
+# }

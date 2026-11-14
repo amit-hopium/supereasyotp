@@ -1,0 +1,14 @@
+.env
+.env.*
+!.env.example
+!.env.production.example
+node_modules
+.pnpm-store
+apps/api/dist
+apps/extension/dist
+apps/web/dist
+*.zip
+build-pack
+docs
+.git
+.DS_Store

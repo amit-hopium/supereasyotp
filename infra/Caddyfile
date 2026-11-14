@@ -1,0 +1,11 @@
+{$PUBLIC_SITE_HOSTS} {
+  encode zstd gzip
+  root * /srv/site
+  try_files {path} {path}/index.html {path}/
+  file_server
+}
+
+{$API_HOST} {
+  encode zstd gzip
+  reverse_proxy api:8787
+}

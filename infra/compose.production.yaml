@@ -1,0 +1,81 @@
+name: instamail
+services:
+  caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    environment:
+      API_HOST: ${API_HOST:?Set API_HOST in .env.production}
+      PUBLIC_SITE_HOSTS: ${PUBLIC_SITE_HOSTS:?Set PUBLIC_SITE_HOSTS e.g. hopiumstudio.com, www.hopiumstudio.com}
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - ${SITE_ROOT:-../site}:/srv/site:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      api:
+        condition: service_healthy
+    networks: [edge]
+
+  api:
+    build:
+      context: ..
+      dockerfile: infra/Dockerfile
+    restart: unless-stopped
+    env_file: ../.env.production
+    environment:
+      PORT: "8787"
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:8787/readyz').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 20s
+      timeout: 5s
+      start_period: 30s
+      retries: 3
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks: [edge, data]
+
+  postgres:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: instamail
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env.production}
+      POSTGRES_DB: instamail
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U instamail -d instamail"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks: [data]
+
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks: [data]
+
+networks:
+  edge:
+  data:
+    internal: true
+
+volumes:
+  caddy_data:
+  caddy_config:
+  postgres_data:
+  redis_data:

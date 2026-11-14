@@ -1,0 +1,16 @@
+import {test} from 'node:test';import assert from 'node:assert/strict';import {detect,parseMime} from './index';
+test('preserves leading zeros',()=>assert.equal(detect('Sign-in code','Your verification code is 004291').code,'004291'));
+test('rejects ambiguous codes',()=>assert.equal(detect('','verification code: 123456. login code: 654321').code,undefined));
+test('receipts do not become codes',()=>assert.equal(detect('Receipt','Order 123456, phone 12345678').code,undefined));
+test('payment and reset suppression',()=>{for(const text of ['Password reset','Approve payment'])assert.equal(detect(text,'verification code: 123456').code,undefined)});
+test('signed links preserved and unsafe links rejected',()=>{const url='https://example.com/login?t=a%2Bb&x=1';assert.equal(detect('','',[{text:'Sign in',url}]).url,url);assert.equal(detect('','',[{text:'Sign in',url:'javascript:alert(1)'}]).url,undefined)});
+test('MIME never renders script',()=>{const p=parseMime({mimeType:'text/html',body:{data:Buffer.from('<script>alert(1)</script><b>Hello</b>').toString('base64url')}});assert.equal(p.text,'Hello')});
+test('magic link with generic CTA text',()=>{const url='https://app.example.com/auth/verify?token=abc123';assert.equal(detect('Sign in to Example','Use this link to continue.',[{text:'Click here',url}]).url,url);});
+test('plain-text https magic link',()=>assert.equal(detect('Your login link','Continue: https://id.example.com/login?code=9x8y7z').url,'https://id.example.com/login?code=9x8y7z'));
+test('confirm email button',()=>{const url='https://accounts.google.com/AccountChooser?continue=1';assert.equal(detect('Confirm your email','',[{text:'Confirm your email address',url}]).url,url);});
+test('rejects two competing auth links',()=>assert.equal(detect('Sign in','',[{text:'Sign in',url:'https://a.com/login?x=1'},{text:'Sign in',url:'https://b.com/login?y=2'}]).url,undefined));
+test('google redirect unwrap',()=>{const target='https://app.hopiumstudio.com/sign-in?token=abc';const wrap='https://www.google.com/url?q='+encodeURIComponent(target);assert.equal(detect('Your sign-in link','',[{text:'',url:wrap}]).url,target);});
+test('single auth link with sign-in subject',()=>assert.equal(detect('Sign-in link','Tap the button in this email.',[{text:'',url:'https://studio.example/accept?ticket=longvaluehere'}]).url,'https://studio.example/accept?ticket=longvaluehere'));
+test('parseMime extracts unquoted href',()=>{const html='<p><a href=https://id.example/verify?t=1>Continue</a></p>';const p=parseMime({mimeType:'text/html',body:{data:Buffer.from(html).toString('base64url')}});assert.equal(detect('Verify',p.text,p.links).url,'https://id.example/verify?t=1');});
+test('sign-in link beats unsubscribe footer',()=>{const magic='https://app.test/sign-in?token=abcdef12';assert.equal(detect('Your sign-in link','Thanks!',[{text:'Unsubscribe',url:'https://app.test/unsubscribe?id=1'},{text:'Sign in',url:magic}]).url,magic);});
+test('plain-only email body',()=>{const url='https://studio.test/auth/continue?s=longsessionvalue';const plain='Use this link to sign in:\n'+url;const p=parseMime({mimeType:'text/plain',body:{data:Buffer.from(plain).toString('base64url')}});assert.equal(detect('Sign-in link',p.text,p.links).url,url);});
